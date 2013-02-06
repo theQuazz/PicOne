@@ -1,11 +1,10 @@
 Twocents::Application.routes.draw do
-  resources :photos
 
-
-  resources :collections
-
-
-  resources :users
+  resources :users do
+    resources :collections do
+      resources :photos
+    end
+  end
 
 
   # The priority is based upon order of creation:

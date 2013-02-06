@@ -1,0 +1,7 @@
+%p#notice= notice
+%p
+  %b User:
+  = @collection.user
+= link_to 'Edit', edit_user_collection_path(@collection)
+|
+\#{link_to 'Back', user_collections_path}

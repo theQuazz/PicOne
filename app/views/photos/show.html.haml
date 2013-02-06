@@ -1,0 +1,7 @@
+%p#notice= notice
+%p
+  %b Collection:
+  = @photo.collection
+= link_to 'Edit', edit_user_collection_photo_path(@photo)
+|
+\#{link_to 'Back', user_collection_photos_path}
