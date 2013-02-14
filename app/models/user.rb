@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   validates :last_name, length: { maximum: 50 }
   validates :nickname, presence: true, 
                        length: { maximum: 50 }, 
-                       uniqueness: {case_sensitive: false}
+                       uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
   validates :email, presence: true, 
