@@ -1,10 +1,8 @@
 class Photo < ActiveRecord::Base
   attr_accessible :caption, :image, :location
 
-  before_save :generate_path
-
   belongs_to :collection
-  belongs_to :user, through: :collection
+  delegate :owner, to: :collection, allow_nil: true
 
   extend FriendlyId
   friendly_id :caption, use: :slugged
@@ -13,4 +11,17 @@ class Photo < ActiveRecord::Base
   acts_as_commentable
 
   validates :caption, length: { maximum: 30 }
+
+
+  def favourite_by(user)
+    if collection.has_favourite_from_user? user
+      collection.update_user_favourite user, self
+    else
+      collection.add_favourite_from_user user, self
+    end
+  end
+
+  def unfavourite_by(user)
+    collection.remove_favourite_for_user(user) if collection.favourite_of(user) == self
+  end
 end

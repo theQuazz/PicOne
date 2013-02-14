@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214055825) do
+ActiveRecord::Schema.define(:version => 20130214063837) do
 
   create_table "collections", :force => true do |t|
     t.integer  "user_id"
@@ -38,6 +38,18 @@ ActiveRecord::Schema.define(:version => 20130214055825) do
   add_index "comments", ["commentable_id"], :name => "index_comments_on_commentable_id"
   add_index "comments", ["commentable_type"], :name => "index_comments_on_commentable_type"
   add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+
+  create_table "favourites", :force => true do |t|
+    t.integer  "user_id",       :null => false
+    t.integer  "photo_id",      :null => false
+    t.integer  "collection_id", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "favourites", ["collection_id"], :name => "index_favourites_on_collection_id"
+  add_index "favourites", ["photo_id"], :name => "index_favourites_on_photo_id"
+  add_index "favourites", ["user_id"], :name => "index_favourites_on_user_id"
 
   create_table "follows", :force => true do |t|
     t.integer  "followable_id",                          :null => false
