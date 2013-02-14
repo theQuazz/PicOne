@@ -4,11 +4,12 @@ gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'sqlite3'
+#
 gem 'oauth2'
 gem 'haml-rails'
 gem 'mysql2'
+gem 'jquery-rails'
+gem 'acts_as_follower', git: 'git@github.com:theQuazz/acts_as_follower.git'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,7 +23,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+group :development, :test do
+  gem 'mysql2'
+  gem 'rspec-rails', '2.11.0'
+end
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
