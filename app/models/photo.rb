@@ -9,6 +9,7 @@ class Photo < ActiveRecord::Base
   extend FriendlyId
   friendly_id :caption, use: :slugged
   has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+  acts_as_votable
 
   validates :caption, length: { maximum: 30 }
 end
