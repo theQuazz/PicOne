@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :nickname, 
                   :password, :password_confirmation, :email,
-                  :birthday, :gender
+                  :birthday, :gender, :privacy_level
 
   before_save { |user| user.email = email.downcase }
 
@@ -33,5 +33,13 @@ class User < ActiveRecord::Base
 
   def name=(what)
     self.first_name, self.last_name = what.split " ", 2
+  end
+
+  def public?
+    privacy_level == "public"
+  end
+
+  def private?
+    !public?
   end
 end
