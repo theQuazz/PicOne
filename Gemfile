@@ -10,6 +10,7 @@ gem 'haml-rails'
 gem 'mysql2'
 gem 'jquery-rails'
 gem 'acts_as_follower', git: 'git@github.com:theQuazz/acts_as_follower.git'
+gem "friendly_id", "~> 4.0.9"
 
 # Gems used only for assets and not required
 # in production environments by default.
