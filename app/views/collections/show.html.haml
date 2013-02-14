@@ -1,7 +1,7 @@
-%p#notice= notice
+#notice= notice
 %p
-  %b User:
+  %label User:
   = @collection.user
-= link_to 'Edit', edit_user_collection_path(@collection)
-|
-\#{link_to 'Back', user_collections_path}
+%ul
+  %li link_to 'Edit', edit_user_collection_path(@collection)
+  %li link_to 'Back', user_collections_path
