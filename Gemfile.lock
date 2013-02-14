@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:theQuazz/acts_as_follower.git
-  revision: d400a1ff9d9ace1d18a926c3d37878938e4c016e
+  revision: c7b8cfaea860ae35be928a06fe647c71cc5041b0
   specs:
-    acts_as_follower (0.1.1)
+    acts_as_follower (0.2.0)
 
 GEM
   remote: https://rubygems.org/
@@ -147,7 +147,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_follower!
+  acts_as_follower (~> 0.2.0)!
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
   friendly_id (~> 4.0.9)

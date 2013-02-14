@@ -9,7 +9,7 @@ gem 'oauth2'
 gem 'haml-rails'
 gem 'mysql2'
 gem 'jquery-rails'
-gem 'acts_as_follower', git: 'git@github.com:theQuazz/acts_as_follower.git'
+gem 'acts_as_follower', '~> 0.2.0', git: 'git@github.com:theQuazz/acts_as_follower.git'
 gem "friendly_id", "~> 4.0.9"
 gem 'bcrypt-ruby'
 gem "paperclip", "~> 3.0"
