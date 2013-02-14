@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214020256) do
+ActiveRecord::Schema.define(:version => 20130214025646) do
 
   create_table "collections", :force => true do |t|
     t.integer  "user_id"
@@ -41,11 +41,14 @@ ActiveRecord::Schema.define(:version => 20130214020256) do
   create_table "photos", :force => true do |t|
     t.integer  "collection_id"
     t.string   "caption"
-    t.string   "path"
     t.string   "location"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
     t.string   "slug"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "photos", ["collection_id"], :name => "index_photos_on_collection_id"

@@ -1,5 +1,5 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :caption, :path, :location
+  attr_accessible :caption, :image, :location
 
   before_save :generate_path
 
@@ -8,12 +8,7 @@ class Photo < ActiveRecord::Base
 
   extend FriendlyId
   friendly_id :caption, use: :slugged
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }
 
   validates :caption, length: { maximum: 30 }
-
-
-  def generate_path
-    # this is just a preliminary implementation
-    self.path = File.join Rails.root, 'public', to_param
-  end
 end
