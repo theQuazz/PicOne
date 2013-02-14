@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214014243) do
+ActiveRecord::Schema.define(:version => 20130214020256) do
 
   create_table "collections", :force => true do |t|
     t.integer  "user_id"
@@ -19,8 +19,10 @@ ActiveRecord::Schema.define(:version => 20130214014243) do
     t.text     "description"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "slug"
   end
 
+  add_index "collections", ["slug"], :name => "index_collections_on_slug", :unique => true
   add_index "collections", ["user_id"], :name => "index_collections_on_user_id"
 
   create_table "follows", :force => true do |t|
@@ -43,9 +45,11 @@ ActiveRecord::Schema.define(:version => 20130214014243) do
     t.string   "location"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+    t.string   "slug"
   end
 
   add_index "photos", ["collection_id"], :name => "index_photos_on_collection_id"
+  add_index "photos", ["slug"], :name => "index_photos_on_slug", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
