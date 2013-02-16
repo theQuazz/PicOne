@@ -2,7 +2,7 @@ class Photo < ActiveRecord::Base
   attr_accessible :caption, :image, :location
 
   belongs_to :collection
-  delegate :owner, to: :collection, allow_nil: true
+  delegate :user, to: :collection, allow_nil: true
 
   extend FriendlyId
   friendly_id :caption, use: :slugged
