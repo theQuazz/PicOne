@@ -1,7 +1,13 @@
-%p#notice= notice
+#notice= notice
 %p
-  %b Collection:
-  = @photo.collection
-= link_to 'Edit', edit_user_collection_photo_path(@photo)
-|
-\#{link_to 'Back', user_collection_photos_path}
+  %label User:
+  = @photo.user
+%p
+  %label Collection:
+  = @photo.collection.name
+%p
+  %label Photo:
+  = @photo.caption
+%ul
+  %li= link_to 'Edit', edit_user_collection_photo_path(@photo.user, @photo.collection, @photo)
+  %li= link_to 'Back', user_collection_photos_path(@photo.user, @photo.collection)

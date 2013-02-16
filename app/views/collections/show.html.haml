@@ -1,7 +1,10 @@
 #notice= notice
 %p
   %label User:
-  = @collection.user
+  = @collection.user.name
+%p
+  %label Collection:
+  = @collection.name
 %ul
-  %li link_to 'Edit', edit_user_collection_path(@collection)
-  %li link_to 'Back', user_collections_path
+  %li= link_to 'Edit', edit_user_collection_path(@collection.user, @collection)
+  %li= link_to 'Back', user_collections_path(@collection.user)

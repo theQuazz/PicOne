@@ -1,8 +1,12 @@
 class CollectionsController < ApplicationController
-  # GET /collections
-  # GET /collections.json
+  before_filter :find_collection, only: [:show, :edit, :update, :destroy]
+  before_filter :find_user, only: [:index, :create]
+
+  # url: user_collections_url(user)
+  # GET /users/:user_id/collections
+  # GET /users/:user_id/collections.json
   def index
-    @collections = Collection.all
+    @collections = @user.collections
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,21 +14,22 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # GET /collections/1
-  # GET /collections/1.json
+  # url: show_user_collection_url(user, collection)
+  # GET /users/:user_id/collections/:id
+  # GET /users/:user_id/collections/:id.json
   def show
-    @collection = Collection.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @collection }
     end
   end
 
-  # GET /collections/new
-  # GET /collections/new.json
+  # url: new_user_collection_url(user)
+  # GET /users/:user_id/collections/new
+  # GET /users/:user_id/collections/new.json
   def new
     @collection = Collection.new
+    @collection.user = @user
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,19 +37,21 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # GET /collections/1/edit
+  # url: edit_user_collection_url(user, collection)
+  # GET /users/:user_id/collections/:id/edit
   def edit
-    @collection = Collection.find(params[:id])
   end
 
-  # POST /collections
-  # POST /collections.json
+  # no url or path, this is only from forms
+  # POST /users/:user_id/collections
+  # POST /users/:user_id/collections.json
   def create
     @collection = Collection.new(params[:collection])
+    @collection.user = @user
 
     respond_to do |format|
       if @collection.save
-        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
+        format.html { redirect_to [@collection.user, @collection], notice: 'Collection was successfully created.' }
         format.json { render json: @collection, status: :created, location: @collection }
       else
         format.html { render action: "new" }
@@ -53,14 +60,13 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # PUT /collections/1
-  # PUT /collections/1.json
+  # no url or path, this is only from forms
+  # PUT /users/:user_id/collections/:id
+  # PUT /users/:user_id/collections/:id.json
   def update
-    @collection = Collection.find(params[:id])
-
     respond_to do |format|
       if @collection.update_attributes(params[:collection])
-        format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
+        format.html { redirect_to [@collection.user, @collection], notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -69,15 +75,27 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # DELETE /collections/1
-  # DELETE /collections/1.json
+
+  # no url or path, this is only from forms
+  # DELETE /users/:user_id/collections/:id
+  # DELETE /users/:user_id/collections/:id.json
   def destroy
-    @collection = Collection.find(params[:id])
     @collection.destroy
 
     respond_to do |format|
-      format.html { redirect_to collections_url }
+      format.html { redirect_to user_collections_url(@collection.user) }
       format.json { head :no_content }
     end
+  end
+
+
+  private
+
+  def find_user
+    @user = User.find params[:user_id]
+  end
+
+  def find_collection
+    @collection = Collection.find params[:id]
   end
 end

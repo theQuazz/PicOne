@@ -1,5 +1,5 @@
 %h1 Editing user
 = render 'form'
-= link_to 'Show', @user
-|
-\#{link_to 'Back', users_path}
+%ul
+  %li= link_to 'Show', @user
+  %li= link_to 'Back', users_path

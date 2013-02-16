@@ -1,5 +1,5 @@
 %h1 Editing photo
 = render 'form'
-= link_to 'Show', @photo
-|
-\#{link_to 'Back', user_collection_photos_path}
+%ul
+  %li= link_to 'Show', [@photo.user, @photo.collection, @photo]
+  %li= link_to 'Back', user_collection_photos_path(@photo.user, @photo.collection)

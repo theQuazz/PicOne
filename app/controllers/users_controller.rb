@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  before_filter :find_user, only: [:show, :edit, :update, :destroy]
+
+  # url: users_url
   # GET /users
   # GET /users.json
   def index
@@ -10,17 +13,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1
-  # GET /users/1.json
+  # url: show_user_url(user)
+  # GET /users/:id
+  # GET /users/:id.json
   def show
-    @user = User.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @user }
     end
   end
 
+  # url: new_user_url
   # GET /users/new
   # GET /users/new.json
   def new
@@ -32,11 +35,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /users/1/edit
+  # url: edit_user_url(user)
+  # GET /users/:id/edit
   def edit
-    @user = User.find(params[:id])
   end
 
+  # no url or path, this is only from forms
   # POST /users
   # POST /users.json
   def create
@@ -53,11 +57,10 @@ class UsersController < ApplicationController
     end
   end
 
-  # PUT /users/1
-  # PUT /users/1.json
+  # no url or path, this is only from forms
+  # PUT /users/:id
+  # PUT /users/:id.json
   def update
-    @user = User.find(params[:id])
-
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
@@ -69,15 +72,22 @@ class UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
-  # DELETE /users/1.json
+  # no url or path, this is only from forms
+  # DELETE /users/:id
+  # DELETE /users/:id.json
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
 
     respond_to do |format|
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+
+  private
+
+  def find_user
+    @user = User.find params[:id]
   end
 end
