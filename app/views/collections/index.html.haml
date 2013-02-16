@@ -1,15 +1,15 @@
 %h1 Listing collections
 %table
   %tr
-    %th User
+    %th Collection
     %th
     %th
     %th
   - @collections.each do |collection|
     %tr
-      %td= collection.user
-      %td= link_to 'Show', collection
-      %td= link_to 'Edit', edit_user_collection_path(collection)
-      %td= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Collection', new_user_collection_path
+      %td= collection.name
+      %td= link_to 'Show', [@user, collection]
+      %td= link_to 'Edit', edit_user_collection_path(@user, collection)
+      %td= link_to 'Destroy', [@user, collection], method: :delete, data: { confirm: 'Are you sure?' }
+%br
+= link_to 'New Collection', new_user_collection_path(@user)
