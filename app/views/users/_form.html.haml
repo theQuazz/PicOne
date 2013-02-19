@@ -1,7 +1,29 @@
 = form_for @user do |f|
   = render 'shared/errors', object: @user
   .field
-    = f.label :name
-    = f.text_field :name
+    = f.label :first_name
+    = f.text_field :first_name
+  .field
+    = f.label :last_name
+    = f.text_field :last_name
+  .field
+    = f.label :nickname
+    = f.text_field :nickname
+  .field
+    = f.label :password
+    = f.text_field :password
+  .field
+    = f.label :password_confirmation
+    = f.text_field :password_confirmation
+  .field
+    = f.label :gender
+    = f.text_field :gender
+  .field
+    = f.label :birthday
+    = f.text_field :birthday
+  .field
+    = f.label :privacy_level
+    = f.select :privacy_level, options_for_select(['public','private'])
+  .field
   .actions
     = f.submit

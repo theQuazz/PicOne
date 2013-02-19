@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214231513) do
+ActiveRecord::Schema.define(:version => 20130219031506) do
 
   create_table "collections", :force => true do |t|
     t.integer  "user_id"
@@ -103,8 +103,10 @@ ActiveRecord::Schema.define(:version => 20130214231513) do
     t.datetime "updated_at",                            :null => false
     t.string   "slug"
     t.string   "privacy_level",   :default => "public"
+    t.string   "remember_token"
   end
 
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
   add_index "users", ["slug"], :name => "index_users_on_slug", :unique => true
 
   create_table "votes", :force => true do |t|

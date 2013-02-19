@@ -1,14 +1,26 @@
 class UsersController < ApplicationController
   before_filter :find_user, only: [:show, :edit, :update, :destroy]
+  before_filter :require_sign_in, only: [:index, :edit, :update, :destroy]
+  before_filter :correct_user, only: [:edit, :update, :destroy]
+  before_filter :require_not_signed_in, only: [:new, :create]
 
   # url: users_url
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    case params[:relationship] ||= 'following'
+    when 'following'
+      @users = current_user.following_users
+    when 'followers'
+      @users = current_user.followers
+    when 'followers-following'
+      @users = current_user.followers & current_user.following_users
+    when 'public'
+      @users = User.find_all_by_privacy_level "public"
+    end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # index.html.haml
       format.json { render json: @users }
     end
   end
@@ -18,7 +30,7 @@ class UsersController < ApplicationController
   # GET /users/:id.json
   def show
     respond_to do |format|
-      format.html # show.html.erb
+      format.html # show.html.haml
       format.json { render json: @user }
     end
   end
@@ -30,7 +42,7 @@ class UsersController < ApplicationController
     @user = User.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html # new.html.haml
       format.json { render json: @user }
     end
   end
@@ -48,6 +60,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        sign_in @user
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else
@@ -88,6 +101,11 @@ class UsersController < ApplicationController
   private
 
   def find_user
-    @user = User.find params[:id]
+    @user ||= User.find params[:id]
+  end
+
+  def correct_user
+    find_user unless @user
+    redirect_to(root_url) unless current_user?(@user)
   end
 end

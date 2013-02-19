@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
                   :birthday, :gender, :privacy_level
 
   before_save { |user| user.email = email.downcase }
+  before_save :create_remember_token
 
   has_many :collections
   has_many :photos, through: :collections
@@ -42,5 +43,17 @@ class User < ActiveRecord::Base
 
   def private?
     !public?
+  end
+
+  def generate_new_remember_token
+    create_remember_token
+    save!
+  end
+
+
+  private
+
+  def create_remember_token
+    self.remember_token = SecureRandom.urlsafe_base64
   end
 end
