@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :photos, through: :collections
 
   extend FriendlyId
-  friendly_id :name, use: :slugged
+  friendly_id :nickname, use: :slugged
   has_secure_password
   acts_as_followable
   acts_as_follower
