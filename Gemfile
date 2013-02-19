@@ -16,6 +16,9 @@ gem "paperclip", "~> 3.0"
 gem 'acts_as_votable', '~> 0.5.0'
 gem 'acts_as_commentable', '3.0.1'
 
+# Use this until we get a graphic designer
+gem 'bootstrap-sass', '~> 2.3.0.0'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
