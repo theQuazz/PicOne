@@ -6,6 +6,21 @@ Twocents::Application.routes.draw do
     end
   end
   resources :sessions, only: [:new, :create, :destroy]
+  resources :followers, only: [:index, :create, :destroy] do
+    member do
+      get 'accept'
+      get 'block'
+      get 'ignore'
+      get 'decline'
+    end
+    collection do
+      get 'pending'
+      get 'ignored'
+      get 'blocked'
+    end
+  end
+  match '/following', to: 'followers#following'
+
 
   root to: 'pages#home'
 
