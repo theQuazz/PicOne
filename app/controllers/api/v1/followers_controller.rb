@@ -1,7 +1,5 @@
-class FollowersController < ApplicationController
-  before_filter :require_sign_in
-
-  respond_to :html, :json
+class Api::V1::FollowersController < ApiController
+  respond_to :json
 
   def following
     respond_with current_user.all_following
@@ -29,10 +27,7 @@ class FollowersController < ApplicationController
       current_user.follow @user
       if @user.public?
         @user.accept_follower current_user
-        flash.now[:success] = "Successfully followed #{@user.nickname}"
       end
-    else
-      flash.now[:success] = "Requested to follow #{@user.nickname}"
     end
     respond_with @user
   end
@@ -47,9 +42,6 @@ class FollowersController < ApplicationController
     @user = User.find params[:id]
     unless current_user.following? @user
       current_user.accept_follower @user
-      flash.now[:success] = "Successfully accepted #{@user.nickname}'s follow request"
-    else
-      flash.now[:notice] = "Already following #{@user.nickname}"
     end
     respond_with @user
   end
@@ -57,7 +49,6 @@ class FollowersController < ApplicationController
   def block
     @user = User.find params[:id]
     current_user.block @user
-    flash.now[:success] = "Blocked #{@user.nickname}"
     respond_with @user
   end
 
@@ -65,9 +56,6 @@ class FollowersController < ApplicationController
     @user = User.find params[:id]
     if current_user.has_pending_follow_request_from @user
       current_user.ignore_follower @user
-      flash.now[:success] = "Ignored #{@user.nickname}'s follow request"
-    else
-      flash.now[:error] = "Unable to find follow request from #{@user.nickname}."
     end
     respond_with @user
   end
@@ -76,9 +64,6 @@ class FollowersController < ApplicationController
     @user = User.find params[:id]
     if current_user.has_pending_follow_request_from @user
       current_user.decline_follower @user
-      flash.now[:success] = "Declined #{@user.nickname}'s follow request"
-    else
-      flash.now[:error] = "Unable to find follow request from #{@user.nickname}"
     end
     respond_with @user
   end
