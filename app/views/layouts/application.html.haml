@@ -9,7 +9,7 @@
       %script{src: "http://html5shim.googlecode.com/svn/trunk/html5.js"}
   %body
     = render 'layouts/header'
-    .container
+    .container-fluid{ class: "#{params[:controller].split('/').last} #{params[:action]}" }
       - flash.each do |key,value|
         .div{class: "alert alert-#{key}"}= value
       = yield
