@@ -1,8 +1,8 @@
 GIT
   remote: git@github.com:theQuazz/acts_as_follower.git
-  revision: c7b8cfaea860ae35be928a06fe647c71cc5041b0
+  revision: 55c3e57304588d4ac75b25eb5a28b2c09e0e4649
   specs:
-    acts_as_follower (0.2.0)
+    acts_as_follower (0.2.1)
 
 GEM
   remote: https://rubygems.org/
@@ -153,7 +153,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_commentable (= 3.0.1)
-  acts_as_follower (~> 0.2.0)!
+  acts_as_follower (~> 0.2.1)!
   acts_as_votable (~> 0.5.0)
   bcrypt-ruby
   bootstrap-sass (~> 2.3.0.0)
