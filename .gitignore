@@ -13,5 +13,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore database.yml
+config/database.yml
+
+# Ignore vim files
 .*.un~
 .*.swp

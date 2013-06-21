@@ -1,20 +1,20 @@
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :nickname, 
-                  :password, :password_confirmation, :email,
-                  :birthday, :gender, :privacy_level
-
-  before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token
-
-  has_many :collections
-  has_many :photos, through: :collections
+  has_secure_password
 
   extend FriendlyId
   friendly_id :nickname, use: :slugged
-  has_secure_password
+
   acts_as_followable
   acts_as_follower
   acts_as_voter
+
+  has_many :collections, dependent: :destroy
+  has_many :photos, through: :collections, dependent: :destroy
+  has_many :api_keys, dependent: :destroy
+
+  before_save { |user| user.email = email.downcase }
+  before_create :create_remember_token
+  before_create :create_access_token
 
   validates :first_name, presence: true, 
                          length: { maximum: 50 }
@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
-  def name=(what)
-    self.first_name, self.last_name = what.split " ", 2
+  def name=(new_name)
+    self.first_name, self.last_name = new_name.split " ", 2
   end
 
   def public?
@@ -50,10 +50,22 @@ class User < ActiveRecord::Base
     save!
   end
 
+  def find_by_access_token(access_token)
+    self.joins(:api_keys).where('api_keys.access_token = ? AND api_keys.expires_on > ?', access_token, Time.now).first
+  end
+
+  def current_access_token
+    api_keys.most_recent_unexpired.pluck(:access_token).first
+  end
 
   private
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
   end
+
+  def create_access_token
+    api_keys.create
+  end
+
 end
