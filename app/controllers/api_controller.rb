@@ -1,7 +1,13 @@
 class ApiController < ActionController::Base
+  respond_to :json
+
   attr_accessor :current_user
 
   before_filter :token_authenticate
+
+  def raise_not_authorized
+    render json: { errors: ['Not authorized'] }, status: :unauthorized
+  end
 
   private
 

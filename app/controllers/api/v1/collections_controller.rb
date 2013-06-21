@@ -1,7 +1,5 @@
 class Api::V1::CollectionsController < ApiController
 
-  respond_to :json
-
   before_filter :find_collection, only: [:show, :update, :destroy]
 
   def index

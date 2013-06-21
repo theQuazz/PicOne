@@ -1,5 +1,4 @@
 class Api::V1::FollowersController < ApiController
-  respond_to :json
 
   def following
     respond_with current_user.all_following

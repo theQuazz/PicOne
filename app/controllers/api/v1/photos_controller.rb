@@ -1,5 +1,4 @@
 class Api::V1::PhotosController < ApiController
-  respond_to :json
 
   before_filter :find_photo, only: [:show, :update, :destroy]
 

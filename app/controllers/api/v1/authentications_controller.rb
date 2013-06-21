@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationsController < ApiController
-  respond_to :json
+
   skip_before_filter :token_authenticate
 
   def create
@@ -11,10 +11,6 @@ class Api::V1::AuthenticationsController < ApiController
     else
       respond_with { errors: ['Bad credentials'] }, status: :unauthorized
     end
-  end
-
-  def raise_not_authorized
-    render json: { errors: ['Not authorized'] }, status: :unauthorized
   end
 
 end

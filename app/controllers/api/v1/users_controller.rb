@@ -1,5 +1,4 @@
 class Api::V1::UsersController < ApiController
-  respond_to :json
 
   skip_before_filter :token_authenticate, only: :create
 
