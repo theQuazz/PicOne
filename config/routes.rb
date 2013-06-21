@@ -1,36 +1,43 @@
 Twocents::Application.routes.draw do
 
-  resources :users do
-    resources :collections do
-      resources :photos
+  namespace :api do
+    namespace :v1 do
+      resources :authentications, only: :create
+      resources :users, only: [:index, :show, :create, :update, :destroy]
+      resources :photos, only: [:index, :show, :update, :destroy]
+      resources :collections, only: [:index, :show, :create, :update, :destroy] do
+        resources :photos, only: [:index, :create]
+      end
+      resources :followers, only: [:index, :create, :destroy] do
+        member do
+          get 'accept'
+          get 'block'
+          get 'ignore'
+          get 'decline'
+        end
+        collection do
+          get 'pending'
+          get 'ignored'
+          get 'blocked'
+        end
+      end
+      match '/following', to: 'followers#following'
     end
   end
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :followers, only: [:index, :create, :destroy] do
-    member do
-      get 'accept'
-      get 'block'
-      get 'ignore'
-      get 'decline'
-    end
-    collection do
-      get 'pending'
-      get 'ignored'
-      get 'blocked'
-    end
-  end
-  match '/following', to: 'followers#following'
-
 
   root to: 'pages#home'
 
-  match '/signup',  to: 'users#new'
-  match '/signin',  to: 'sessions#new'
-  match '/signout', to: 'sessions#destroy', via: :delete
+  scope module: :web do
+    resources :sessions, only: [:create, :destroy, :new]
 
-  match '/help',    to: 'pages#help'
-  match '/about',   to: 'pages#about'
-  match '/contact', to: 'pages#contact'
+    match '/signup',  to: 'users#new'
+    match '/signin',  to: 'sessions#new'
+    match '/signout', to: 'sessions#destroy', via: :delete
+
+    match '/help',    to: 'pages#help'
+    match '/about',   to: 'pages#about'
+    match '/contact', to: 'pages#contact'
+  end
 
 
   # The priority is based upon order of creation:
