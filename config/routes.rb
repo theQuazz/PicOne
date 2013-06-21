@@ -25,8 +25,6 @@ Twocents::Application.routes.draw do
     end
   end
 
-  root to: 'pages#home'
-
   scope module: :web do
     resources :sessions, only: [:create, :destroy, :new]
 
@@ -37,6 +35,8 @@ Twocents::Application.routes.draw do
     match '/help',    to: 'pages#help'
     match '/about',   to: 'pages#about'
     match '/contact', to: 'pages#contact'
+
+    root to: 'pages#home'
   end
 
 

@@ -8,6 +8,7 @@ gem 'rails', '3.2.9'
 gem 'oauth2'
 gem 'haml-rails'
 gem 'mysql2'
+gem 'pg'
 gem 'jquery-rails'
 gem 'acts_as_follower', '~> 0.2.1', git: 'git@github.com:theQuazz/acts_as_follower.git'
 gem "friendly_id", "~> 4.0.9"
@@ -32,7 +33,7 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'mysql2'
+  gem 'sqlite3'
   gem 'rspec-rails', '2.11.0'
 end
 
