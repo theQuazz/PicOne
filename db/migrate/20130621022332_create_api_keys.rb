@@ -3,7 +3,7 @@ class CreateApiKeys < ActiveRecord::Migration
     create_table :api_keys do |t|
       t.integer :user_id
       t.string :access_token
-      t.datetime :exires_on
+      t.datetime :expires_on
 
       t.timestamps
     end

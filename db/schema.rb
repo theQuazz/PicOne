@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(:version => 20130621022332) do
   create_table "api_keys", :force => true do |t|
     t.integer  "user_id"
     t.string   "access_token"
-    t.datetime "exires_on"
+    t.datetime "expires_on"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
