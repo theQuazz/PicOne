@@ -30,6 +30,14 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
 
 
+  def self.find_by_access_token(access_token)
+    self.joins(:api_keys).where('api_keys.access_token = ? AND api_keys.expires_on > ?', access_token, Time.now).first
+  end
+
+  def self.find_by_nickname_or_email(query)
+    find_by_nickname(query) || find_by_email(query)
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
@@ -49,10 +57,6 @@ class User < ActiveRecord::Base
   def generate_new_remember_token
     create_remember_token
     save!
-  end
-
-  def find_by_access_token(access_token)
-    self.joins(:api_keys).where('api_keys.access_token = ? AND api_keys.expires_on > ?', access_token, Time.now).first
   end
 
   def current_access_token

@@ -5,7 +5,7 @@
   .span4.offset4.center
     = form_for :session, url: sessions_path do |f|
 
-      = f.text_field :nickname, placeholder: 'login'
+      = f.text_field :login, placeholder: 'login'
       = f.password_field :password, placeholder: 'password'
 
       = f.submit "Sign in", class: "btn btn-primary"
