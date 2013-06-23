@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(user_params)
 
     if @user.save
       redirect_to api_v2_user_path(@user)
@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApiController
   end
 
   def update
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(user_params)
       head :no_content
     else
       respond_with { errors: @user.errors.full_messages }, status: :unprocessable_entity
@@ -54,6 +54,10 @@ class Api::V1::UsersController < ApiController
   def correct_user
     find_user unless @user
     raise_not_authorized unless current_user == @user
+  end
+
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :nickname, :email, :password, :password_confirmation)
   end
 
 end

@@ -17,7 +17,7 @@ class Api::V1::PhotosController < ApiController
   end
 
   def create
-    @photo = collection.photos.build params[:photo]
+    @photo = collection.photos.build photo_params
 
     if @photo.save
       respond_with @photo, status: :created, location: @photo
@@ -27,7 +27,7 @@ class Api::V1::PhotosController < ApiController
   end
 
   def update
-    if @photo.update_attributes params[:photo]
+    if @photo.update_attributes photo_params
       head :no_content
     else
       respond_with { errors: @photo.errors.full_messages }, status: :unprocessable_entity
@@ -49,4 +49,9 @@ class Api::V1::PhotosController < ApiController
   def collection
     current_user.collections.find params[:collection_id]
   end
+
+  def photo_params
+    params.require(:photo).permit(:caption, :image, :location)
+  end
+
 end

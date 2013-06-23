@@ -13,7 +13,7 @@ class Api::V1::CollectionsController < ApiController
   end
 
   def create
-    @collection = @user.collections.build params[:collection]
+    @collection = @user.collections.build collection_params
 
     if @collection.save
       redirect_to api_v2_collection_path(@collection)
@@ -23,7 +23,7 @@ class Api::V1::CollectionsController < ApiController
   end
 
   def update
-    if @collection.update_attributes(params[:collection])
+    if @collection.update_attributes(collection_params)
       head :no_content
     else
       respond_with { errors: @collection.errors.full_messages }, status: :unprocessable_entity
@@ -40,6 +40,10 @@ class Api::V1::CollectionsController < ApiController
 
   def find_collection
     @collection = current_user.collections.find params[:id]
+  end
+
+  def collection_params
+    params.require(:collection).permit(:name, :description)
   end
 
 end

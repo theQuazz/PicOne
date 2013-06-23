@@ -5,15 +5,16 @@ gem 'rails', '3.2.9'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 #
-gem 'oauth2'
+gem 'jquery-rails'
 gem 'haml-rails'
+gem 'oauth2'
+gem 'bcrypt-ruby'
+gem 'strong_parameters'
 gem 'mysql2'
 gem 'pg'
-gem 'jquery-rails'
-gem 'acts_as_follower', '~> 0.2.1', git: 'git@github.com:theQuazz/acts_as_follower.git'
-gem "friendly_id", "~> 4.0.9"
-gem 'bcrypt-ruby'
 gem "paperclip", "~> 3.0"
+gem "friendly_id", "~> 4.0.9"
+gem 'acts_as_follower', '~> 0.2.1', git: 'git@github.com:theQuazz/acts_as_follower.git'
 gem 'acts_as_votable', '~> 0.5.0'
 gem 'acts_as_commentable', '3.0.1'
 

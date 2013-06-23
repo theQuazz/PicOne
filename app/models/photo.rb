@@ -1,5 +1,4 @@
 class Photo < ActiveRecord::Base
-  attr_accessible :caption, :image, :location
 
   belongs_to :collection
   delegate :user, to: :collection, allow_nil: true
